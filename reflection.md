@@ -26,12 +26,16 @@ Currently, I have not made any major changes to my initial design. As I continue
 **a. Constraints and priorities**
 
 - What constraints does your scheduler consider (for example: time, priority, preferences)?
-- How did you decide which constraints mattered most?
+- How did you decside which constraints mattered most?
+My scheduler considers the owner's available time, task priority, task completion status, and scheduled task time. First, it selects tasks that fit within the owner's available minutes, prioritizing higher-priority tasks before lower ones. 
+ It alsos sort tasks by their scheduled time and filter tasks by pet or completion status. I chose these constraints because they are the most important for helping a pet owner complete essential care tasks within a limited amount of time.
 
 **b. Tradeoffs**
 
 - Describe one tradeoff your scheduler makes.
 - Why is that tradeoff reasonable for this scenario?
+My scheduler uses a simple conflict detection algorithm that only checks whether two tasks have the exact same scheduled start time. The AI suggested a more efficient solution using a dictionary to group tasks by time, but I kept my original implementation because it is easier to read and understand. Since PawPal+ only manages a small number of pet care tasks, this simpler approach is a reasonable tradeoff between readability and performance.
+
 
 ---
 
