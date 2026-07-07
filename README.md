@@ -45,35 +45,54 @@ pip install -r requirements.txt
 ## 🖥️ Sample Output
 
 Paste a sample of your app's CLI or Streamlit output here so a reader can see what a generated plan looks like:
+## 🖥️ Sample Output
+
+```text
 Today's Schedule
 -------------------------
-- Morning Walk (30 min, Priority 1)
-- Feed Breakfast (10 min, Priority 1)
-- Brush Fur (15 min, Priority 2)
+- Feed Breakfast at 07:30 (10 min, Priority 1)
+- Morning Walk at 08:00 (30 min, Priority 1)
+- Brush Fur at 09:15 (15 min, Priority 2)
 
-```
-# e.g.:
-# Daily plan for Biscuit (Golden Retriever):
-#   08:00 — Morning walk (30 min) [priority: high]
-#   09:00 — Feeding (10 min) [priority: high]
-#   ...
+Luna's Tasks
+-------------------------
+- Morning Walk at 08:00
+- Feed Breakfast at 07:30
+
+Schedule Conflicts
+-------------------------
+- Conflict: 'Morning Walk' and 'Play Time' are both scheduled at 08:00.
 ```
 
 ## 🧪 Testing PawPal+
 
 ```bash
-# Run the full test suite:
+python3 -m pytest
 pytest
 
 # Run with coverage:
-pytest --cov
-```
+The automated tests verify:
 
-Sample test output:
-
+- Task completion updates the task status correctly.
+- Adding a task increases a pet's task count.
+- Tasks are sorted in chronological order.
+- Tasks can be filtered by pet name and completion status.
+- The scheduler respects the available time limit.
+- Conflict detection identifies tasks scheduled at the same time.
+- Recurring task behavior.
+- Edge cases such as empty task lists and exact time boundaries.
 ```
 # Paste your pytest output here
-```
+```text
+==================== test session starts =====================
+platform darwin -- Python 3.14.0, pytest-9.1.0, pluggy-1.6.0
+rootdir: /Users/mansimohanraj/ai110-module2show-pawpal-starter
+plugins: anyio-4.14.0
+collected 11 items
+
+tests/test_pawpal.py ...........                       [100%]
+
+===================== 11 passed in 0.01s =====================
 
 ## 📐 Smarter Scheduling
 

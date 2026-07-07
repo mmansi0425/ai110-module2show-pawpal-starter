@@ -2,7 +2,7 @@
 
 from datetime import date
 
-from pawpal_system import Pet, Scheduler, Task
+from pawpal_system import Owner, Pet, Scheduler, Task
 
 
 def test_mark_complete_changes_status():
@@ -102,3 +102,48 @@ def test_find_conflicts_returns_empty_when_no_clash():
     warnings = scheduler.find_conflicts(tasks)
 
     assert warnings == []
+
+
+def test_sort_by_time_orders_tasks_chronologically():
+    scheduler = Scheduler()
+    tasks = [
+        Task(name="Lunch Feed", duration=10, priority=1, time="12:15"),
+        Task(name="Morning Walk", duration=30, priority=1, time="07:30"),
+        Task(name="Play", duration=20, priority=1, time="09:00"),
+    ]
+
+    sorted_tasks = scheduler.sort_by_time(tasks)
+
+    ordered_names = [task.name for task in sorted_tasks]
+    assert ordered_names == ["Morning Walk", "Play", "Lunch Feed"]
+
+
+def test_filter_tasks_by_pet_name_returns_only_that_pets_tasks():
+    scheduler = Scheduler()
+    owner = Owner(name="Sam", email="sam@example.com", available_minutes=60)
+
+    rex = Pet(name="Rex", species="dog")
+    rex.add_task(Task(name="Walk", duration=30, priority=1))
+
+    luna = Pet(name="Luna", species="cat")
+    luna.add_task(Task(name="Groom", duration=15, priority=2))
+
+    owner.add_pet(rex)
+    owner.add_pet(luna)
+
+    rex_tasks = scheduler.filter_tasks_by(owner, pet_name="Rex")
+
+    assert len(rex_tasks) == 1
+    assert rex_tasks[0].name == "Walk"
+
+
+def test_filter_tasks_includes_task_that_exactly_fits():
+    scheduler = Scheduler()
+    tasks = [
+        Task(name="Walk", duration=30, priority=1),
+    ]
+
+    chosen = scheduler.filter_tasks(tasks, available_minutes=30)
+
+    assert len(chosen) == 1
+    assert chosen[0].name == "Walk"
